@@ -125,6 +125,7 @@
         let pipeSpeed = 2;
         let score = 0;
         let gameRunning = true;
+        let gameStarted = false;
         let frameCount = 0;
 
         // Draw bird
@@ -147,6 +148,14 @@
             ctx.lineTo(bird.x + bird.width + 15, bird.y + bird.height/2 - 5);
             ctx.lineTo(bird.x + bird.width, bird.y + bird.height/2 + 5);
             ctx.fill();
+            
+            // Get ready message
+            if (!gameStarted && gameRunning) {
+                ctx.fillStyle = '#FFF';
+                ctx.font = 'bold 24px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Press SPACE or Click to Start', canvas.width / 2, bird.y - 40);
+            }
         }
 
         // Create pipe
@@ -224,6 +233,7 @@
 
         // Update bird
         function updateBird() {
+            if (!gameStarted) return;
             bird.velocity += bird.gravity;
             bird.y += bird.velocity;
         }
@@ -231,6 +241,9 @@
         // Flap
         function flap() {
             if (gameRunning) {
+                if (!gameStarted) {
+                    gameStarted = true;
+                }
                 bird.velocity = bird.jumpStrength;
             }
         }
@@ -294,6 +307,7 @@
             pipes = [];
             score = 0;
             frameCount = 0;
+            gameStarted = false;
             scoreDisplay.textContent = '0';
             gameOverDiv.style.display = 'none';
             gameRunning = true;
