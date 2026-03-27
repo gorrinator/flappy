@@ -121,8 +121,9 @@
 
         let pipes = [];
         let pipeWidth = 60;
-        let pipeGap = 350;
+        let pipeGap = 220;
         let pipeSpeed = 1;
+        let pipeFrequency = 140;
         let score = 0;
         let gameRunning = true;
         let gameStarted = false;
@@ -341,7 +342,7 @@
             
             // Create new pipes
             frameCount++;
-            if (frameCount % 100 === 0) {
+            if (frameCount % pipeFrequency === 0) {
                 createPipe();
             }
             
